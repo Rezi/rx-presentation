@@ -408,6 +408,77 @@ Here is another comment.
 
 # What is it good for?
 
+- ReactiveX lets you build event driven apps without imperative code.
+- Simplifying asynchronous programming by providing unified API across different data sources and types.
+- Enhancing code reusability and maintainability
+- Provides parallel processing by default (great scalability)
+- Facilitating interoperability between different programming languages and platforms through its wide language support.
+
+---
+
+# Example
+
+```ts {1-15|19-26|27-28|29-47|48-49|52-56|57-58|all} {maxHeight:'400px'}
+import { Observable, filter, map, scan, throttleTime } from 'rxjs';
+
+import { webSocket } from 'rxjs/webSocket';
+
+// Define the WebSocket URL for the stock exchange
+const wsUrl = 'wss://foo-stock-exchange.com';
+
+interface StockData {
+	symbol: string;
+	price: string;
+	timestamp: number;
+}
+
+// Create an observable that listens for incoming data from the web socket
+const stockData$: Observable<StockData> = webSocket(wsUrl);
+
+// Apply a series of operators to the stock data observable to transform, filter, and aggregate the data as needed
+const processedData$ = stockData$.pipe(
+	// Map the raw data to a more usable format
+	map((rawData: StockData) => {
+		return {
+			symbol: rawData.symbol,
+			price: parseFloat(rawData.price),
+			timestamp: new Date(rawData.timestamp)
+		};
+	}),
+	// Filter out any unwanted data
+	filter((data) => data.symbol !== 'AAPL'),
+	// Aggregate the data over time
+	scan(
+		(acc, data) => {
+			return {
+				symbol: data.symbol,
+				maxPrice: Math.max(acc.maxPrice, data.price),
+				minPrice: Math.min(acc.minPrice, data.price),
+				latestPrice: data.price,
+				timestamp: data.timestamp
+			};
+		},
+		{
+			symbol: '',
+			maxPrice: 0,
+			minPrice: 0,
+			latestPrice: 0,
+			timestamp: new Date()
+		}
+	),
+	// Limit the frequency of updates to the UI
+	throttleTime(1000)
+);
+
+// Subscribe to the processed data observable to receive the data and update the UI
+const mySubscription = processedData$.subscribe((data) => {
+	console.log(data);
+	// Update the UI with the processed data
+});
+// Unsubscribe after 50s
+setTimeout(mySubscription.unsubscribe, 50000);
+```
+
 ---
 
 # Marble diagrams
