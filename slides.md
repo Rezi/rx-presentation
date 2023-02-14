@@ -81,8 +81,11 @@ console.log(variable);
   padding-block:1rem;
 } 
 </style>
-----
-# Accessing data with promises?
+
+---
+
+
+# Accessing data with promises? 🎁
 
 ### Waiting for value to be resolved before using it (Promises)
 
@@ -111,7 +114,7 @@ If don't you call `myPromise.then(console.log);` straight away in the code but r
 
 
 ----
-# Accessing data with observables?
+# Accessing data with observables? 👁️
 
 ### Can be synchronous or asynchronous, depends on data producer.
 
@@ -146,7 +149,7 @@ console.log(variable); // 0.89787687
 
 ---
 
-# ReactiveX Vocabulary
+# ReactiveX Vocabulary 📔
 
 - Pull vs Push
 - Observable (hot/cold)
@@ -208,7 +211,7 @@ Here is another comment.
 
 ---
 
-# Subscription 
+# Subscription ✅
 
 - Act of a consumer requesting access to observe a producer
 - Subscription is finalized on:
@@ -223,11 +226,11 @@ Here is another comment.
 
 ---
 
-# Observer 
+# Observer 😎
 
 - is an Object with functions, consuming values delivered by Observable:
 
-```
+```ts
 const observer = {
   next: x => console.log('Observer got a next value: ' + x),
   error: err => console.error('Observer got an error: ' + err),
@@ -259,7 +262,7 @@ Here is another comment.
 
 ---
 
-# .pipe()
+# .pipe() 🚰
 
 - Pipe is a simple helper function which call operator functions passed to it one by one. 
 - Each operator function in pipe takes output of the previous (Observable) or initial Observable, as argument and return new Observable, which is passed to next operator function or subscriber.
@@ -288,7 +291,7 @@ class Observable {
 layout: 7-5
 ---
 
-# Operator example
+# Operator example 🧪
 
 
 ```ts{1,18|2,17|3,16|5-15|all}
@@ -329,7 +332,7 @@ interval(1000).pipe(
 
 ---
 
-# Recycling operators, when creating new ones
+# Recycling operators, when creating new ones 🛠️
 
 
 ```ts
@@ -343,7 +346,7 @@ function powerOfTwoMap() {
 ```
 &nbsp; 
 
-# Simplified
+# Simplified 🔨
 
 ```ts
 import { map } from "rxjs";
@@ -359,11 +362,11 @@ function powerOfTwoMap() {
 # Observable typology:
 
 
-- Hot Observable 
+- Hot Observable 🥵
   - When its producer's value was created outside of the context of the subscribe action
   - Same value from producer is **shared** among many subscribers
   - Contains list of of subscribers, when the the list length is 0, subscription is finalized.
-- Cold Observable 
+- Cold Observable 🥶
   - creates a new producer during subscribe for every new subscription. Is unicasting by design.
 - Multicasting
   - The act of one producer being observed by many consumers.
@@ -386,7 +389,7 @@ Here is another comment.
   - you can **.subscribe()** to it as to **Observable**
   - you can call **.next()**, **.error()** and **.complete()** on it as on Observer
 
-```
+```ts
 const subject = new Subject<number>();
 subject.subscribe({
   next: (v) => console.log(`observerA: ${v}`),
@@ -406,7 +409,7 @@ Here is another comment.
 
 ---
 
-# What is it good for?
+# What is it good for? 🤔
 
 - ReactiveX lets you build event driven apps without imperative code.
 - Simplifying asynchronous programming by providing unified API across different data sources and types.
@@ -416,7 +419,7 @@ Here is another comment.
 
 ---
 
-# Example
+# Example 👨‍💻
 
 ```ts {1-15|19-26|27-28|29-47|48-49|52-56|57-58|all} {maxHeight:'400px'}
 import { Observable, filter, map, scan, throttleTime } from 'rxjs';
@@ -481,7 +484,7 @@ setTimeout(mySubscription.unsubscribe, 50000);
 
 ---
 
-# Marble diagrams
+# 🔮 Marble diagrams 
 
 ![Local Image](/marble-diagram-anatomy.svg)
 
@@ -495,7 +498,7 @@ p {
 layout: center
 ---
 
-# Show time
+# Show time 🚘
 
 ---
 layout: iframe
