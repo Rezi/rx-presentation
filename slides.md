@@ -498,15 +498,9 @@ p {
 layout: center
 ---
 
-# Show time 🚘
+# [Show time 🚘](https://rx-cars.netlify.app/)
 
----
-layout: iframe
 
-# the web page source
-url: https://rx-cars.netlify.app/
-
----
 ---
 layout: center
 ---
